@@ -33,14 +33,14 @@ public final class Prime {
   private Prime() {}
 
   public static boolean isPrime(long n) {
-    if (n <= MAX_SIEVE) {
-      return isPrime((int)n);
+    if (n < MAX_SIEVE) {
+      return SIEVE[(int)n];
     } else {
       return TESTED.computeIfAbsent(n, i -> LongStream.rangeClosed(2, (long)(Math.sqrt(i))).parallel().filter(j -> TESTED.getOrDefault(j, true)).allMatch(j -> i % j != 0));
     }
   }
 
   public static boolean isPrime(int n) {
-    return SIEVE[n];
+    return isPrime((long) n);
   }
 }
